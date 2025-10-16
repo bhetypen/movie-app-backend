@@ -4,12 +4,21 @@ const cors = require("cors");
 const port = 4000;
 const app = express();
 
+
+
+const corsOptions = {
+    origin: "http://localhost:3000",
+};
+
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-app.use(cors());
+
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+app.use(cors(corsOptions));
 
 //MongoDB database
-mongoose.connect("mongodb+srv://admin:admin@b561-penetzdorfer.ggf3ovs.mongodb.net/MovieCatalogSystem?retryWrites=true&w=majority&appName=B561-Penetzdorfer", {
+mongoose.connect(process.env.MONGODB_STRING, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
