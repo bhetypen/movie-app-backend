@@ -66,24 +66,21 @@ function login(req, res) {
 }
 
 function retrieveDetails(req, res) {
-    let q;
-    if (req.user?.id) {
-        q = User.findById(req.user.id).select("email isAdmin");
-    } else if (req.user?.email) {
-        q = User.findOne({ email: req.user.email }).select("email isAdmin");
-    } else {
-        return res.status(404).send({ error: "User not found" });
+    if (!req.user?.id) {
+        return res.status(401).send({ error: "Unauthorized" });
     }
 
-    q.then((user) => {
-        if (!user) return res.status(404).send({ error: "User not found" });
-
-        res.send({ user }); // send the whole doc
-    })
+    User.findById(req.user.id)
+        .select("_id email isAdmin __v") // pick exactly these fields
+        .then((user) => {
+            if (!user) return res.status(404).send({ error: "User not found" });
+            res.send({ user }); // { _id, email, isAdmin, __v }
+        })
         .catch((e) => {
             console.error("retrieveDetails error:", e);
             res.status(500).send({ error: "server error" });
         });
 }
+
 
 module.exports = { register, login, loginUser: login, retrieveDetails };
