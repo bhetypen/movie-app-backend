@@ -73,7 +73,13 @@ function retrieveDetails(req, res) {
 
     q.then((user) => {
         if (!user) return res.status(404).send({ error: "User not found" });
-        res.send({ user: { id: user._id, email: user.email } });
+        res.send({
+            user: {
+                id: user._id,
+                email: user.email,
+                isAdmin: user.isAdmin
+            }
+        });
     })
         .catch((e) => {
             console.error("retrieveDetails error:", e);
