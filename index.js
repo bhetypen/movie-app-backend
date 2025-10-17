@@ -7,8 +7,8 @@ const app = express();
 
 
 const corsOptions = {
-    origin: "http://localhost:3001",
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3001", "http://localhost:3001", "https://movie-app-frontend-bhety-ps-projects.vercel.app"]
+
 }
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
