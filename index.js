@@ -7,7 +7,7 @@ const app = express();
 
 
 const corsOptions = {
-    origin: ["http://localhost:3001", "http://localhost:3001", "https://movie-app-frontend-bhety-ps-projects.vercel.app"]
+    origin: ["http://localhost:3001", "http://localhost:3001", "https://movie-app-frontend-indol.vercel.app"]
 
 }
 app.use(express.json());
